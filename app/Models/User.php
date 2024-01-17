@@ -2,15 +2,21 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/** @property int $role_id
+ * @property mixed enabled
+ * @property int branch_id
+ */
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    public const ROLE_ADMIN = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -51,4 +57,16 @@ class User extends Authenticatable
     {
         return $this->enabled;
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->role_id === self::ROLE_ADMIN;
+    }
+
+    public function getBranchId(): ?int
+    {
+        return $this->branch_id;
+    }
+
+
 }
