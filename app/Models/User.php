@@ -18,9 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
         'email',
         'password',
+        'role_id',
+        'enabled',
+        'branch_id',
     ];
 
     /**
@@ -40,6 +43,12 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'birthday'          => 'date',
+        'enabled'           => 'boolean'
     ];
+
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
 }
