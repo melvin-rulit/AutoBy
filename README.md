@@ -1,2 +1,35 @@
-# AutoBy
-Car shopping management system. Manage and follow everything that happens to your sales. This system will help you in this difficult question
+<h1 align="center">AutoBy CRM</h1>
+<img src="https://github.com/melvin-rulit/First-Crm/blob/master/storage/app/public/images/AutoBy.png">
+
+## Install
+1) Download and install <a href="https://getcomposer.org/download/" target="_blank">Composer</a> in you system
+2) Download this repository or clone
+```sh
+git clone https://github.com/melvin-rulit/AutoBy.git
+```
+3) We go to the project folder
+```sh
+cd AutoBy
+```
+3) Install dependencies
+```sh
+npm install
+```
+3) Run this command for generate new Laravel key
+```sh
+ php artisan key:generate
+```
+4) Rename ```.env.example``` to ```.env``` Setup the database configuration inside ```.env```
+   
+5) Run this command for run migrations in Data Base
+```sh
+php artisan migrate
+```
+6) Run this command for install dependencies
+```sh
+composer install
+```
+7) Run this command for install packages
+```sh
+npm install
+```
