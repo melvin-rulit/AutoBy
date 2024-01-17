@@ -33,3 +33,17 @@ composer install
 ```sh
 npm install
 ```
+
+## Launch
+1) If you are developing on a local computer, you can run a built-in server
+```sh
+php artisan serve
+```
+2) If you want to run in a Docker container, then use the launch instructions
+```sh
+https://github.com/melvin-rulit/Docker-php
+```
+3) 
+```sh
+npm run dev
+```
