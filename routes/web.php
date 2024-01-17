@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/user', [UserController::class, 'current']);
     Route::get('/roles', [UserController::class, 'getRoles']);
+
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/', [UserController::class, 'index'])->name('users.list');
+        Route::post('/', [UserController::class, 'store']);
+
+    });
 
 });
 
