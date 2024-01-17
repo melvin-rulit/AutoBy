@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
+    Route::get('/', [IndexController::class, 'index'])->name('dashboard');
 });
 
 Auth::routes();
