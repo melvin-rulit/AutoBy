@@ -21,7 +21,7 @@ class UserResource extends JsonResource
             'middle_name' => $this->resource->middle_name,
             'last_name' => $this->resource->last_name,
             'birthday' => $this->resource->birthday,
-            'passport_series',
+            'passport_series' => $this->resource->passport_series,
             'passport_number' => $this->resource->passport_number,
             'passport_notes' => $this->resource->passport_notes,
             'registration_address' => $this->resource->registration_address,
