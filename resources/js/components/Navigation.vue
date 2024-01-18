@@ -4,14 +4,63 @@
             <div class="relative flex flex-col flex-1 min-h-0 pt-0 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                 <div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto">
                     <div class="flex-1 px-3 space-y-1 bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
+                        <ul class="pb-2 space-y-2">
+                            <li>
+                                <router-link to="" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
+                                    <svg>
+
+                                    </svg>
+                                    <span class="ml-3" sidebar-toggle-item=""></span>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
+                                    <svg>
+
+                                    </svg>
+                                    <span class="ml-3" sidebar-toggle-item=""></span>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
+                                    <svg>
+
+                                    </svg>
+                                    <span class="ml-3" sidebar-toggle-item=""></span>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
+                                    <svg>
+
+                                    </svg>
+                                    <span class="ml-3" sidebar-toggle-item=""></span>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
+                                    <svg>
+
+                                    </svg>
+                                    <span class="ml-3" sidebar-toggle-item=""></span>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
+                                    <svg>
+
+                                    </svg>
+                                    <span class="ml-3" sidebar-toggle-item=""></span>
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
+                                    <svg>
+
+                                    </svg>
+                                    <span class="ml-3" sidebar-toggle-item=""></span>
+                                </router-link>
+                            </li>
                         </ul>
                     </div>
                 </div>
