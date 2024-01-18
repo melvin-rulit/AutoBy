@@ -39,11 +39,9 @@ npm install
 ```sh
 php artisan serve
 ```
-2) If you want to run in a Docker container, then use the launch instructions
-```sh
-https://github.com/melvin-rulit/Docker-php
-```
-3) 
+2) If you want to run in a Docker container, then use <a href="https://github.com/melvin-rulit/Docker-php">instructions</a> 
+
+3) Run this command for run a development server
 ```sh
 npm run dev
 ```
