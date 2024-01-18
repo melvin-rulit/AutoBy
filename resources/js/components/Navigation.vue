@@ -1,15 +1,12 @@
 <template>
-<div>
-    <h1>Navigation</h1>
-</div>
+
 </template>
 
 <script>
+import Body from "./Body.vue";
+
 export default {
-    name: "Navigation"
+    components: {Body},
+    name: "Navigation",
 }
 </script>
-
-<style scoped>
-
-</style>
