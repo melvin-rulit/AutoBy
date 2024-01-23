@@ -5,6 +5,7 @@ import {createRouter, createWebHashHistory} from 'vue-router'
 
 import App from "./components/App.vue";
 import UserList from "./components/users/UserList.vue";
+import BranchList from "./components/branches/BranchesList.vue"
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -14,9 +15,14 @@ const router = createRouter({
             component: UserList
         },
         {
-            name: 'listUser',
+            name: 'listUsers',
             path: '/users',
             component: UserList
+        },
+        {
+            name: 'listBranches',
+            path: '/branches',
+            component: BranchList
         }
     ]
 })

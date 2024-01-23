@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BranchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IndexController;
@@ -23,6 +24,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [UserController::class, 'index'])->name('users.list');
         Route::post('/', [UserController::class, 'store']);
 
+    });
+
+    Route::group(['prefix' => 'branches'], function () {
+        Route::get('/', [BranchController::class, 'index'])->name('branches.list');
     });
 
     Route::get('/', [IndexController::class, 'index'])->name('dashboard');
