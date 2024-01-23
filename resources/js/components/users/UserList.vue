@@ -32,6 +32,11 @@
 
                 </table>
 
+                <router-link to="/users/create"
+                             class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
+                             type="button">
+                    <p class="text-sm font-medium leading-none text-white">Создать пользователя</p>
+                </router-link>
             </div>
         </div>
     </div>
@@ -39,14 +44,34 @@
 </template>
 
 <script>
+import {UserService} from "../../services/UserService";
+
 export default {
     name: "UserList",
 
     data: function () {
         return {
             users: [],
+            limit: 5,
+            total: 1
 
         }
+    },
+
+    created:  function () {
+        this.update(this.page)
+    },
+
+    methods: {
+        update:  function () {
+            UserService.getUsers(this.page, this.query)
+                .then(response => {
+                    this.users = response.data.users
+                    this.limit = response.data.limit
+                    this.total = response.data.total
+                })
+        },
+
     },
 }
 </script>

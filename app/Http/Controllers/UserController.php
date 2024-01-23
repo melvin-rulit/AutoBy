@@ -9,6 +9,7 @@ use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
+const PER_PAGE = 20;
 
     /**
      * UserController constructor.
@@ -27,7 +28,13 @@ class UserController extends Controller
             $users = $this->users->where('branch_id', $user->getBranchId());
         }
 
-        return new JsonResponse(['users' => $users]);
+        return new JsonResponse(
+            [
+                'users' => UserResource::collection($users),
+                'limit' => self::PER_PAGE,
+                'total' => $users->total(),
+            ]
+        );
     }
 
     public function current(): JsonResponse

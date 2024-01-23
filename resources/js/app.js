@@ -13,6 +13,11 @@ const router = createRouter({
             path: '/',
             component: UserList
         },
+        {
+            name: 'listUser',
+            path: '/users',
+            component: UserList
+        }
     ]
 })
 
