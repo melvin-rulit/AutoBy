@@ -7,9 +7,15 @@ export class BranchService {
         let url = `${this.serverUrl}/branches`;
         return axios.get(url);
     }
+    static store(id){
+        let url = `${this.serverUrl}/branches/${id}`;
+        return axios.delete(url);
+    }
+
     static delete(id){
         let url = `${this.serverUrl}/branches/${id}`;
         return axios.delete(url);
     }
+
 
 }

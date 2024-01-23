@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Branch\CreateBranchRequest;
 use App\Models\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -13,10 +14,20 @@ class BranchController extends Controller
     {
     }
 
-    public function index()
+    public function index(): JsonResponse
     {
         $branches = $this->branches::all();
         return new JsonResponse(['branches' => BranchResource::collection($branches)]);
+    }
+
+    public function store(CreateBranchRequest $request): JsonResponse
+    {
+        $branch = $this->branches->newInstance();
+        $branch->name = $request->getName();
+        $branch->address = $request->getAddress();
+        $branch->save();
+
+        return new JsonResponse(['branches' => BranchResource::make($branch)]);
     }
 
     public function delete(int $id): JsonResponse

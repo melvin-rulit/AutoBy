@@ -28,6 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'branches'], function () {
         Route::get('/', [BranchController::class, 'index'])->name('branches.list');
+        Route::post('/', [BranchController::class, 'store']);
+        Route::delete('/{id}', [BranchController::class, 'delete']);
     });
 
     Route::get('/', [IndexController::class, 'index'])->name('dashboard');
