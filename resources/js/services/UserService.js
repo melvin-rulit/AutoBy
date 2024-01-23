@@ -8,5 +8,21 @@ export class UserService {
         return axios.get(url);
     }
 
+    static store(user) {
+        let url = `${this.serverUrl}/users`;
+        return axios.post(url, user)
+    }
+
+    static currentUser()
+    {
+        let url = `${this.serverUrl}/user`;
+        return axios.get(url)
+    }
+
+    static getRoles()
+    {
+        let url = `${this.serverUrl}/roles`;
+        return axios.get(url)
+    }
 
 }
