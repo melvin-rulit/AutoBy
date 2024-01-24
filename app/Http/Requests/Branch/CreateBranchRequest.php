@@ -22,10 +22,19 @@ class CreateBranchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['require', 'string'],
-            'address' => ['require', 'string'],
+            'name' => ['required', 'string'],
+            'address' => ['required', 'string'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Имя обязательно для заполнения',
+            'address.required' => 'Адрес обязателен для заполнения',
+        ];
+    }
+
     public function getName(): string
     {
         return $this->input('name');

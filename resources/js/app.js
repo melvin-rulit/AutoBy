@@ -22,7 +22,7 @@ const router = createRouter({
             component: UserList
         },
         {
-            name: 'listBranch',
+            name: 'listBranches',
             path: '/branches',
             component: BranchList
         },

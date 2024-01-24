@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Branch\CreateBranchRequest;
 use App\Models\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\BranchResource;
+use App\Http\Requests\Branch\CreateBranchRequest;
 
 class BranchController extends Controller
 {
