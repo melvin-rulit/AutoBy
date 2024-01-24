@@ -1,4 +1,5 @@
 import './bootstrap';
+import 'flowbite';
 
 import {createApp} from 'vue'
 import {createRouter, createWebHashHistory} from 'vue-router'
@@ -30,7 +31,9 @@ const router = createRouter({
             path: '/branches/create',
             component: BranchCreate
         }
-    ]
+    ],
+
+    linkActiveClass: 'bg-gray-200'
 })
 
 createApp(App).use(router).mount('#app')
