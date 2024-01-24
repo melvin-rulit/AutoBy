@@ -2,6 +2,8 @@
     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <div class="px-6 py-6 lg:px-8">
             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Добавление филиала</h3>
+            <Success :message="message"/>
+            <Error :errors="errors"/>
             <form @submit="store">
                 <div class="relative z-0 w-full mb-6 group">
                     <TextInput title="Название" v-model:value="branch.name" type="text"/>
@@ -26,10 +28,12 @@
 <script>
 import {BranchService} from "../../services/BranchService";
 import TextInput from "../instruments/TextInput.vue";
+import Error from "../instruments/Error.vue";
+import Success from "../instruments/Success.vue";
 
 export default {
     name: "BranchCreateForm",
-    components: {TextInput},
+    components: {Success, Error, TextInput},
 
     data: function () {
         return {
@@ -39,6 +43,7 @@ export default {
                 'address': ''
             },
             errors: null,
+            message: null,
         }
     },
     methods: {
@@ -47,6 +52,7 @@ export default {
             this.errors = null
             BranchService.store(this.branch)
                 .then(response => {
+                    this.message = "Филиал создан"
                     this.branch = response.data.branch
                     this.$router.push({name: 'listBranches'})
                 })
