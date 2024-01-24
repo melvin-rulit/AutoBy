@@ -4,10 +4,10 @@
             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Добавление филиала</h3>
             <form @submit="store">
                 <div class="relative z-0 w-full mb-6 group">
-
+                    <TextInput title="Название" v-model:value="branch.name" type="text"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
-
+                    <TextInput title="Адрес" v-model:value="branch.address" type="text"/>
                 </div>
                 <div class="mt-6 flex items-center justify-end gap-x-6">
                     <router-link to="/branches" type="button"
@@ -25,9 +25,11 @@
 
 <script>
 import {BranchService} from "../../services/BranchService";
+import TextInput from "../instruments/TextInput.vue";
 
 export default {
     name: "BranchCreateForm",
+    components: {TextInput},
 
     data: function () {
         return {
@@ -37,7 +39,6 @@ export default {
                 'address': ''
             },
             errors: null,
-            message: null
         }
     },
     methods: {
