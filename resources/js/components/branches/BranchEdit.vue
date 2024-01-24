@@ -1,13 +1,15 @@
 <template>
     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <div class="px-6 py-6 lg:px-8">
+            <Success :message="message"/>
+            <Error :errors="errors"/>
             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Редактирование филиала</h3>
             <form @submit="update">
                 <div class="relative z-0 w-full mb-6 group">
-                    <TextInput title="Название филиала" v-model:value="branch.name" type="text"/>
+                    <TextInput title="Название" v-model:value="branch.name" type="text"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
-                    <TextInput title="Адрес филиала" v-model:value="branch.address" type="text"/>
+                    <TextInput title="Адрес" v-model:value="branch.address" type="text"/>
                 </div>
                 <div class="mt-6 flex items-center justify-end gap-x-6">
                     <router-link to="/branches" type="button"
@@ -25,11 +27,16 @@
 
 <script>
 import {BranchService} from "../../services/BranchService";
+import TextInput from "../instruments/TextInput.vue";
+import Error from "../instruments/Error.vue";
+import Success from "../instruments/Success.vue";
 
 export default {
     name: "BranchCreate",
+    components: {Success, Error, TextInput},
     data: function () {
         return {
+            id: this.$route.params.id,
             branch: {
                 'name': '',
                 'address': '',
@@ -38,17 +45,24 @@ export default {
             errors: '',
         }
     },
+    created() {
+        this.branch = this.getBranchById(this.id)
+    },
+
     methods: {
+        getBranchById: async function (id){
+            await BranchService.getById(id)
+            .then(response => this.branch = response.data.branch)
+            .catch(error => { this.errors = error.response.data.message })
+        },
         update: async function(event) {
             event.preventDefault()
             await BranchService.update(this.branch)
                 .then(response => {
                     this.branch = response.data.branch
-                    this.message = "Филиал создан"
+                    this.message = "Филиал обновлен"
                 })
-                .catch(error => {
-                    this.errors = error.response.data.message
-                })
+                .catch(error => { this.errors = error.response.data.message })
         }
     }
 }

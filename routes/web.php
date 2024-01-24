@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'branches'], function () {
         Route::get('/', [BranchController::class, 'index'])->name('branches.list');
         Route::post('/', [BranchController::class, 'store']);
+        Route::get('/{id}', [BranchController::class, 'show']);
+        Route::put('/{id}', [BranchController::class, 'update']);
         Route::delete('/{id}', [BranchController::class, 'delete']);
     });
 

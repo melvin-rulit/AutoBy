@@ -8,6 +8,7 @@ import App from "./components/App.vue";
 import UserList from "./components/users/UserList.vue";
 import BranchList from "./components/branches/BranchesList.vue"
 import BranchCreate from "./components/branches/BranchCreate.vue"
+import BranchEdit from "./components/branches/BranchEdit.vue"
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -30,6 +31,11 @@ const router = createRouter({
             name: 'createBranch',
             path: '/branches/create',
             component: BranchCreate
+        },
+        {
+            name: 'updateBranch',
+            path: '/branches/:id',
+            component: BranchEdit
         }
     ],
 
