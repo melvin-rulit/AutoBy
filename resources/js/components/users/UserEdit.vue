@@ -1,10 +1,10 @@
 <template>
     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <div class="px-6 py-6 lg:px-8">
-            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Добавление пользователя</h3>
+            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Редактирование пользователя</h3>
             <Success :message="message"/>
             <Error :errors="errors"/>
-            <form @submit="store">
+            <form @submit="update">
 
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
@@ -87,6 +87,7 @@
 
 <script>
 import {UserService} from "../../services/UserService";
+import {BranchService} from "../../services/BranchService";
 import TextInput from "../instruments/TextInput.vue";
 import Error from "../instruments/Error.vue";
 import Success from "../instruments/Success.vue";
@@ -114,7 +115,6 @@ export default {
                 'phone_number': '',
                 'role_id': '',
                 'branch_id': '',
-                'enabled': 1,
             },
             roles: [],
             branches: [],
@@ -124,6 +124,9 @@ export default {
     },
     created() {
         this.user = this.getUserById(this.id)
+        UserService.getRoles().then(response => this.roles = response.data.roles)
+        BranchService.getBranches().then(response => this.branches = response.data.branches)
+
     },
 
     methods: {

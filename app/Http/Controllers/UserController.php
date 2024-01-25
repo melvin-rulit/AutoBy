@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\User\UserCreateRequest;
+use App\Http\Requests\User\UserUpdateRequest;
 
 class UserController extends Controller
 {
@@ -75,6 +76,37 @@ const PER_PAGE = 20;
         $user->registration_address = $request->getRegistrationAddress();
         $user->phone_number = $request->getPhone();
         $user->comment = $request->getComment();
+
+        $user->save();
+
+        return new JsonResponse(['user' => UserResource::make($user)]);
+    }
+    public function update(UserUpdateRequest $request, int $id): JsonResponse
+    {
+        $user = $this->users->find($id);
+
+        if (!$user) {
+            return $this->error('Пользователь не найден');
+        }
+        $user->role_id = $request->getRoleId();
+        $user->enabled = $request->isEnabled();
+
+        $user->first_name = $request->getFirstName();
+        $user->middle_name = $request->getMiddleName();
+        $user->last_name = $request->getLastName();
+        $user->birthday = $request->getBirthday();
+        $user->passport_series = $request->getPassportSeries();
+        $user->passport_number = $request->getPassportNumber();
+        $user->passport_notes = $request->getPassportNotes();
+        $user->registration_address = $request->getRegistrationAddress();
+        $user->phone_number = $request->getPhone();
+        $user->comment = $request->getComment();
+
+        if ($request->getPassword()) {
+            $user->password = \Hash::make($request->getPassword());
+        }
+
+        $user->branch_id = $request->getBranchId();
 
         $user->save();
 

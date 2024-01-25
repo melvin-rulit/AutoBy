@@ -33,8 +33,8 @@ class UserCreateRequest extends FormRequest
             'passport_number' => ['required', 'string'],
             'registration_address' => ['required', 'string'],
             'passport_notes' => ['required', 'string'],
-            'role_id' => ['required', 'integer'],
-            'branch_id' => ['required', 'integer'],
+            'role_id' => ['required', 'numeric'],
+            'branch_id' => ['required', 'numeric'],
             'password' => ['required', 'string'],
             'comment' => ''
         ];
