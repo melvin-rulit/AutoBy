@@ -12,14 +12,14 @@
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
                         <div class="relative z-0 w-100 mb-6 group">
-                            <!--                    birthday -->
+                            <DateInput title="Дата рождения" v-model:value="user.birthday" type="date"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
-                        <TextInput title="Фамилия" v-model:value="user.first_name" type="text"/>
+                        <TextInput title="Фамилия" v-model:value="user.middle_name" type="text"/>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
                         <TextInput title="Номер телефона" v-model:value="user.phone_number" type="text"/>
@@ -54,28 +54,25 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-5 md:gap-6">
-
-                    <div class="relative z-0 w-full mb-6 group">
-<!--                      Role -->
-                    </div>
-                    <div class="relative z-0 w-full mb-6 group">
-<!--                     Branch  -->
-                    </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <Select title="Роль" name="roleId" v-model:value="user.roleId" :values="roles"/>
                 </div>
 
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <TextInput title="Пароль" v-model:value="user.password" type="password"/>
-                    </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <Textarea title="Комментарий" v-model:value="user.comment"/>
-                    </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <Select title="Филиал" name="branchId" v-model:value="user.branchId" :values="branches"/>
+                </div>
+
+                <div class="relative z-0 w-full mb-6 group">
+                    <TextInput title="Пароль" v-model:value="user.password" type="password"/>
+                </div>
+
+                <div class="relative z-0 w-full mb-6 group">
+<!--                    <Textarea title="Комментарий" v-model:value="user.comment"/>-->
                 </div>
 
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
-                    <router-link to="/branches" type="button"
+                    <router-link to="/users" type="button"
                                  class="text-sm font-semibold leading-6 text-gray-900">Отмена
                     </router-link>
                     <button type="submit"
@@ -90,13 +87,16 @@
 
 <script>
 import {UserService} from "../../services/UserService";
+import {BranchService} from "../../services/BranchService";
 import TextInput from "../instruments/TextInput.vue";
 import Error from "../instruments/Error.vue";
 import Success from "../instruments/Success.vue";
+import DateInput from "../instruments/DataInput.vue";
+import Select from "../instruments/Select.vue";
 
 export default {
     name: "UserCreate",
-    components: {Success, Error, TextInput},
+    components: {Select, DateInput, Success, Error, TextInput},
 
     data: function () {
         return {
@@ -117,9 +117,15 @@ export default {
                 'roleId': '',
                 'branchId': '',
             },
+            roles: [],
+            branches: [],
             errors: null,
             message: null,
         }
+    },
+    created() {
+        UserService.getRoles().then(response => {this.roles = response.data.roles}).catch(error => {this.errors = error.response.data.message})
+        BranchService.getBranches().then(response => {this.branches = response.data.branches}).catch(error => {this.errors = error.response.data.message})
     },
     methods: {
         store: async function (event) {

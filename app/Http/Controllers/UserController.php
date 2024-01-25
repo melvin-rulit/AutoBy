@@ -62,17 +62,6 @@ const PER_PAGE = 20;
        return new JsonResponse(['user' => UserResource::make(auth()->user())]);
     }
 
-    public function getRoles(): JsonResponse
-    {
-        return new JsonResponse(
-            [
-                'roles' => [
 
-                ]
-            ]
-        );
-
-
-    }
 
 }
