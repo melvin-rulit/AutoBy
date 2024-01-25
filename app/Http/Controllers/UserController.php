@@ -27,6 +27,13 @@ const PER_PAGE = 20;
         } else {
             $users = $this->users->where('branch_id', $user->getBranchId());
         }
+        if ($query = $request->query('query')) {
+            $users->where('first_name', 'like', "%{$query}%")
+                ->orWhere('middle_name', 'like', "%{$query}%")
+                ->orWhere('last_name', 'like', "%{$query}%");
+        }
+
+        $users = $users->paginate(self::PER_PAGE);
 
         return new JsonResponse(
             [

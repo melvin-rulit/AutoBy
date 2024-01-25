@@ -24,5 +24,10 @@ export class UserService {
         let url = `${this.serverUrl}/roles`;
         return axios.get(url)
     }
+    static getBranches()
+    {
+        let url = `${this.serverUrl}/branch`;
+        return axios.get(url)
+    }
 
 }

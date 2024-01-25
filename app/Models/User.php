@@ -2,15 +2,29 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
-/** @property int $role_id
- * @property mixed enabled
- * @property int branch_id
- */
+/** @property string $name */
+/** @property string $email */
+/** @property string $password */
+/** @property int $role_id */
+/** @property int branch_id */
+/** @property ?string $first_name */
+/** @property ?string $middle_name */
+/** @property ?string $last_name */
+/** @property ?Carbon $birthday */
+/** @property ?string $passport_series */
+/** @property ?string $passport_number */
+/** @property ?string $passport_notes */
+/** @property ?string $registration_address */
+/** @property ?string $phone_number */
+/** @property ?string $comment */
+
+/** @method find(int $id) */
 
 class User extends Authenticatable
 {
@@ -68,5 +82,14 @@ class User extends Authenticatable
         return $this->branch_id;
     }
 
+    public function branch(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Branch::class);
+    }
+
+    public function getFullName(): string
+    {
+        return sprintf('%s %s %s', $this->first_name, $this->middle_name, $this->last_name,);
+    }
 
 }
