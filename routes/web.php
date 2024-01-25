@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', [UserController::class, 'index'])->name('users.list');
         Route::post('/', [UserController::class, 'store']);
+        Route::delete('/{id}', [UserController::class, 'delete']);
 
     });
 

@@ -44,6 +44,19 @@ const PER_PAGE = 20;
         );
     }
 
+    public function delete(int $id)
+    {
+        $user = $this->users::find($id);
+
+        if (!$user){
+            return $this->error('Пользователь не найден');
+        }
+
+        $user->delete();
+
+        return $this->success();
+    }
+
     public function current(): JsonResponse
     {
        return new JsonResponse(['user' => UserResource::make(auth()->user())]);

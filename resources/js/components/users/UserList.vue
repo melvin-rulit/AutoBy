@@ -2,6 +2,8 @@
 
     <div class="sm:px-6 w-full">
         <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
+            <Error :errors="error"/>
+            <Success :message="message"/>
             <h3 class="text-4xl font-extrabold dark:text-white">Пользователи</h3>
             <div class="mt-7 overflow-x-auto">
 
@@ -25,7 +27,7 @@
                             </div>
                         </td>
                         <td class="pl-3">
-                            <p class="text-sm leading-none text-gray-600 ml-2">Действия</p>
+                            <p class="text-sm leading-none text-gray-600 ml-2"></p>
                         </td>
                     </tr>
 
@@ -53,11 +55,11 @@
                         <td class="pl-4">
                             <div class="flex">
 
-<!--                                <button @click="deleteUser(user.id)" class="text-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none py-2 px-2 rounded hover:bg-red-200 focus:outline-none">-->
-<!--                                    <svg fill="none" height="25" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">-->
-<!--                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>-->
-<!--                                    </svg>-->
-<!--                                </button>-->
+                                <button @click="deleteUser(user.id, user.full_name)" class="text-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none py-2 px-2 rounded hover:bg-red-200 focus:outline-none">
+                                    <svg fill="none" height="25" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+                                    </svg>
+                                </button>
 
                             </div>
                         </td>
@@ -80,15 +82,19 @@
 
 <script>
 import {UserService} from "../../services/UserService";
+import Error from "../instruments/Error.vue";
+import Success from "../instruments/Success.vue";
 
 export default {
     name: "UserList",
-
+    components: {Success, Error},
     data: function () {
         return {
             users: [],
             limit: 5,
-            total: 1
+            total: 1,
+            message: null,
+            error: null,
 
         }
     },
@@ -106,7 +112,19 @@ export default {
                     this.total = response.data.total
                 })
         },
+        deleteUser ($id, $name){
+            const User = $name.toUpperCase()
+            if (confirm('Вы действительно хотите удалить пользователя ' + User + '?')) {
+                UserService.delete($id)
+                    .then(response => {
+                        this.message = 'Пользователь ' + User + ' был успешно удален'
+                        this.update(this.page)
+                    })
 
+
+                    .catch(error => this.error = error.response.data.error)
+            }
+        }
     },
 }
 </script>

@@ -13,6 +13,11 @@ export class UserService {
         return axios.post(url, user)
     }
 
+    static delete(id) {
+        let url = `${this.serverUrl}/users/${id}`;
+        return axios.delete(url, id)
+    }
+
     static currentUser()
     {
         let url = `${this.serverUrl}/user`;
