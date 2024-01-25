@@ -1,10 +1,10 @@
 <template>
     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <div class="px-6 py-6 lg:px-8">
-            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Добавление пользователя</h3>
+            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Редактирование пользователя</h3>
             <Success :message="message"/>
             <Error :errors="errors"/>
-            <form @submit="store">
+            <form @submit="update">
 
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="relative z-0 w-full mb-6 group">
-<!--                    <Textarea title="Комментарий" v-model:value="user.comment"/>-->
+                    <!--                    <Textarea title="Комментарий" v-model:value="user.comment"/>-->
                 </div>
 
 
@@ -97,10 +97,9 @@ import Select from "../instruments/Select.vue";
 export default {
     name: "UserCreate",
     components: {Select, DateInput, Success, Error, TextInput},
-
     data: function () {
         return {
-            loading: false,
+            id: this.$route.params.id,
             user: {
                 'first_name': '',
                 'middle_name': '',
@@ -116,7 +115,6 @@ export default {
                 'phone_number': '',
                 'role_id': '',
                 'branch_id': '',
-                'enabled': 1,
             },
             roles: [],
             branches: [],
@@ -125,23 +123,31 @@ export default {
         }
     },
     created() {
-        UserService.getRoles().then(response => {this.roles = response.data.roles}).catch(error => {this.errors = error.response.data.message})
-        BranchService.getBranches().then(response => {this.branches = response.data.branches}).catch(error => {this.errors = error.response.data.message})
+        this.user = this.getUserById(this.id)
+        UserService.getRoles().then(response => this.roles = response.data.roles)
+        BranchService.getBranches().then(response => this.branches = response.data.branches)
+
     },
+
     methods: {
-        store: async function (event) {
+        getUserById: async function (id){
+            await UserService.getById(id)
+                .then(response => this.user = response.data.user)
+                .catch(error => { this.errors = error.response.data.message })
+        },
+        update: async function(event) {
             event.preventDefault()
-            this.errors = null
-            UserService.store(this.user)
+            await UserService.update(this.user)
                 .then(response => {
-                    this.message = "Пользователь создан"
                     this.user = response.data.user
-                    this.$router.push({name: 'listUsers'})
+                    this.message = "Пользователь обновлен"
                 })
-                .catch(error => {
-                    this.errors = error.response.data.message
-                })
+                .catch(error => { this.errors = error.response.data.message })
         }
     }
 }
 </script>
+
+<style scoped>
+
+</style>

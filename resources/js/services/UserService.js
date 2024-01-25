@@ -13,6 +13,16 @@ export class UserService {
         return axios.post(url, user)
     }
 
+    static getById(id){
+        let url = `${this.serverUrl}/users/${id}`;
+        return axios.get(url);
+    }
+
+    static update(user){
+        let url = `${this.serverUrl}/users/${user.id}`;
+        return axios.put(url, user);
+    }
+
     static delete(id) {
         let url = `${this.serverUrl}/users/${id}`;
         return axios.delete(url, id)
@@ -27,11 +37,6 @@ export class UserService {
     static getRoles()
     {
         let url = `${this.serverUrl}/roles`;
-        return axios.get(url)
-    }
-    static getBranches()
-    {
-        let url = `${this.serverUrl}/branch`;
         return axios.get(url)
     }
 

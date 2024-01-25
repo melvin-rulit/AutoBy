@@ -35,7 +35,8 @@
 
                     <tbody>
                     <tr v-for="user of users" :key=user.id tabindex="0"
-                        class="focus:outline-none h-16 border border-gray-100 rounded">
+                        @click="navigateUsers(user.id)"
+                        class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-blue-100">
                         <td class="">
                             <div class="flex items-center pl-5">
                                 <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ user.full_name }}</p>
@@ -104,6 +105,9 @@ export default {
     },
 
     methods: {
+        navigateUsers(id){
+            this.$router.push({path: '/users/' + id})
+        },
         update:  function () {
             UserService.getUsers(this.page, this.query)
                 .then(response => {
