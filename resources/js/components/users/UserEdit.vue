@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="relative z-0 w-full mb-6 group">
-<!--                    <Textarea title="Комментарий" v-model:value="user.comment"/>-->
+                    <!--                    <Textarea title="Комментарий" v-model:value="user.comment"/>-->
                 </div>
 
 
@@ -87,7 +87,6 @@
 
 <script>
 import {UserService} from "../../services/UserService";
-import {BranchService} from "../../services/BranchService";
 import TextInput from "../instruments/TextInput.vue";
 import Error from "../instruments/Error.vue";
 import Success from "../instruments/Success.vue";
@@ -97,10 +96,9 @@ import Select from "../instruments/Select.vue";
 export default {
     name: "UserCreate",
     components: {Select, DateInput, Success, Error, TextInput},
-
     data: function () {
         return {
-            loading: false,
+            id: this.$route.params.id,
             user: {
                 'first_name': '',
                 'middle_name': '',
@@ -125,23 +123,28 @@ export default {
         }
     },
     created() {
-        UserService.getRoles().then(response => {this.roles = response.data.roles}).catch(error => {this.errors = error.response.data.message})
-        BranchService.getBranches().then(response => {this.branches = response.data.branches}).catch(error => {this.errors = error.response.data.message})
+        this.user = this.getUserById(this.id)
     },
+
     methods: {
-        store: async function (event) {
+        getUserById: async function (id){
+            await UserService.getById(id)
+                .then(response => this.user = response.data.user)
+                .catch(error => { this.errors = error.response.data.message })
+        },
+        update: async function(event) {
             event.preventDefault()
-            this.errors = null
-            UserService.store(this.user)
+            await UserService.update(this.user)
                 .then(response => {
-                    this.message = "Пользователь создан"
                     this.user = response.data.user
-                    this.$router.push({name: 'listUsers'})
+                    this.message = "Пользователь обновлен"
                 })
-                .catch(error => {
-                    this.errors = error.response.data.message
-                })
+                .catch(error => { this.errors = error.response.data.message })
         }
     }
 }
 </script>
+
+<style scoped>
+
+</style>

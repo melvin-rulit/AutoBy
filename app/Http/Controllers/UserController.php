@@ -44,6 +44,16 @@ const PER_PAGE = 20;
             ]
         );
     }
+    public function show($id): JsonResponse
+    {
+        $user = $this->users->find($id);
+
+        if (!$user) {
+            return $this->error('Филиал не найден');
+        }
+
+        return new JsonResponse(['user' => UserResource::make($user)]);
+    }
 
     public function store(UserCreateRequest $request): JsonResponse
     {
