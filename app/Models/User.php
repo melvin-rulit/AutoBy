@@ -84,12 +84,21 @@ class User extends Authenticatable
 
     public function branch(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(Branch::class);
+        return $this->hasOne(Branch::class, 'id', 'branch_id');
     }
 
     public function getFullName(): string
     {
         return sprintf('%s %s %s', $this->first_name, $this->middle_name, $this->last_name,);
+    }
+
+    public function getRoleName(int $id): string
+    {
+        return match ($id){
+            1 => 'Администратор',
+            2 => 'Менеджер',
+            3 => 'Инвестор',
+        };
     }
 
 }

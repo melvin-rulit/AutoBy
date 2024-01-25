@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -28,8 +29,8 @@ class UserResource extends JsonResource
             'registration_address' => $this->resource->registration_address,
             'phone_number' => $this->resource->phone_number,
             'comment' => $this->resource->comment,
-            'role' => $this->resource->role_id,
-            'branch_id' => $this->resource->branch_id,
+            'role' => $this->resource->getRoleName($this->resource->role_id),
+            'branch' => BranchResource::make($this->resource->branch),
             'enabled' => $this->resource->enabled,
         ];
     }
