@@ -8,7 +8,7 @@
 
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
-                        <TextInput title="Имя" v-model:value="user.first_name" type="text"/>
+                        <TextInput title="Фамилия" v-model:value="user.middle_name" type="text"/>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
                         <div class="relative z-0 w-100 mb-6 group">
@@ -19,7 +19,7 @@
 
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
-                        <TextInput title="Фамилия" v-model:value="user.middle_name" type="text"/>
+                        <TextInput title="Имя" v-model:value="user.first_name" type="text"/>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
                         <TextInput title="Номер телефона" v-model:value="user.phone_number" type="text"/>
@@ -38,28 +38,28 @@
 
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
-                        <TextInput title="Серия паспорта" v-model:value="user.passportSeries" type="text"/>
+                        <TextInput title="Серия паспорта" v-model:value="user.passport_series" type="text"/>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-                        <TextInput title="Номер паспорта" v-model:value="user.passportNumber" type="text"/>
+                        <TextInput title="Номер паспорта" v-model:value="user.passport_number" type="text"/>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
-                        <TextInput title="Адрес регистрации" v-model:value="user.registrationAddress" type="text"/>
+                        <TextInput title="Адрес регистрации" v-model:value="user.registration_address" type="text"/>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-                        <TextInput title="Кем выдан паспорт" v-model:value="user.passportNotes" type="text"/>
                     </div>
                 </div>
 
+                <TextInput title="Кем выдан паспорт" v-model:value="user.passport_notes" type="text"/>
                 <div class="relative z-0 w-full mb-6 group">
-                    <Select title="Роль" name="roleId" v-model:value="user.roleId" :values="roles"/>
+                    <Select title="Роль" name="roleId" v-model:value="user.role_id" :values="roles"/>
                 </div>
 
                 <div class="relative z-0 w-full mb-6 group">
-                    <Select title="Филиал" name="branchId" v-model:value="user.branchId" :values="branches"/>
+                    <Select title="Филиал" name="branchId" v-model:value="user.branch_id" :values="branches"/>
                 </div>
 
                 <div class="relative z-0 w-full mb-6 group">
@@ -105,17 +105,18 @@ export default {
                 'first_name': '',
                 'middle_name': '',
                 'last_name': '',
-                'passportSeries': '',
-                'passportNumber': '',
-                'passportNotes': '',
-                'registrationAddress': '',
+                'passport_series': '',
+                'passport_number': '',
+                'registration_address': '',
+                'passport_notes': '',
                 'birthday': '',
                 'password': '',
                 'email': '',
                 'comment': '',
                 'phone_number': '',
-                'roleId': '',
-                'branchId': '',
+                'role_id': '',
+                'branch_id': '',
+                'enabled': 1,
             },
             roles: [],
             branches: [],

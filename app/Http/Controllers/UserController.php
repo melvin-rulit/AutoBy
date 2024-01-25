@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\UserResource;
+use App\Http\Requests\User\UserCreateRequest;
 
 class UserController extends Controller
 {
@@ -42,6 +43,32 @@ const PER_PAGE = 20;
                 'total' => $users->total(),
             ]
         );
+    }
+
+    public function store(UserCreateRequest $request): JsonResponse
+    {
+        $user = $this->users->newInstance();
+
+        $user->email = $request->getEmail();
+        $user->password = \Hash::make($request->getPassword());
+        $user->role_id = $request->getRoleId();
+        $user->enabled = $request->isEnabled();
+        $user->branch_id = $request->getBranchId();
+
+        $user->first_name = $request->getFirstName();
+        $user->middle_name = $request->getMiddleName();
+        $user->last_name = $request->getLastName();
+        $user->birthday = $request->getBirthday();
+        $user->passport_series = $request->getPassportSeries();
+        $user->passport_number = $request->getPassportNumber();
+        $user->passport_notes = $request->getPassportNotes();
+        $user->registration_address = $request->getRegistrationAddress();
+        $user->phone_number = $request->getPhone();
+        $user->comment = $request->getComment();
+
+        $user->save();
+
+        return new JsonResponse(['user' => UserResource::make($user)]);
     }
 
     public function delete(int $id)
