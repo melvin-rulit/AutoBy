@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -36,6 +37,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [BranchController::class, 'show']);
         Route::put('/{id}', [BranchController::class, 'update']);
         Route::delete('/{id}', [BranchController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'clients'], function () {
+        Route::get('/', [ClientController::class, 'index'])->name('clients.list');
+        Route::post('/', [ClientController::class, 'store']);
+        Route::get('/{id}', [ClientController::class, 'show']);
+        Route::put('/{id}', [ClientController::class, 'update']);
+        Route::delete('/{id}', [ClientController::class, 'delete']);
     });
 
     Route::group(['prefix' => 'roles'], function () {
