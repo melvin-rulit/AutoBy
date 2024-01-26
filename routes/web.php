@@ -47,6 +47,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{id}', [ClientController::class, 'delete']);
     });
 
+    Route::group(['prefix' => 'proxies'], function () {
+        Route::get('/', [ClientController::class, 'index'])->name('proxies.list');
+        Route::post('/', [ClientController::class, 'store']);
+        Route::get('/{id}', [ClientController::class, 'show']);
+        Route::put('/{id}', [ClientController::class, 'update']);
+        Route::delete('/{id}', [ClientController::class, 'delete']);
+    });
+
     Route::group(['prefix' => 'roles'], function () {
         Route::get('/', [RoleController::class, 'index'])->name('roles.list');
     });
