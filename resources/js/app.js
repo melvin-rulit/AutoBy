@@ -11,6 +11,9 @@ import UserEdit from "./components/users/UserEdit.vue";
 import BranchList from "./components/branches/BranchesList.vue";
 import BranchCreate from "./components/branches/BranchCreate.vue";
 import BranchEdit from "./components/branches/BranchEdit.vue";
+import ClientList from "./components/clients/ClientList.vue";
+import ClientCreate from "./components/clients/ClientCreate.vue";
+import ClientEdit from "./components/clients/ClientEdit.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -48,6 +51,21 @@ const router = createRouter({
             name: 'updateBranch',
             path: '/branches/:id',
             component: BranchEdit
+        },
+        {
+            name: 'listClient',
+            path: '/clients',
+            component: ClientList
+        },
+        {
+            name: 'createClient',
+            path: '/clients/create',
+            component: ClientCreate
+        },
+        {
+            name: 'updateClient',
+            path: '/clients/:id',
+            component: ClientEdit
         }
     ],
 
