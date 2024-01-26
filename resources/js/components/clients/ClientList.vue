@@ -81,13 +81,13 @@
 <script>
 import { ClientService } from "../../services/ClientService";
 import TextInput from "../instruments/TextInput.vue";
+import Spinner from "../instruments/Spinner.vue";
 import Success from "../instruments/Success.vue";
 import Error from "../instruments/Error.vue";
 
-
 export default {
     name: "ClientsList",
-    components: {Success, Error},
+    components: {Success, Error, Spinner},
     data: function () {
         return {
             clients: [],
