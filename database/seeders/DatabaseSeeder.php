@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            ClientSeeder::class
+            ClientSeeder::class,
+            ProxiSeeder::class,
         ]);
 
 //        if (app()->environment() === 'local') {

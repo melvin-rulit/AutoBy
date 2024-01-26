@@ -17,7 +17,13 @@ class ProxiFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'delegate_id' => 1,
+            'owner_id' => 1,
+            'number' => fake()->numerify,
+            'valid_until' => fake()->date(),
+            'issued_by' => fake()->userName(),
+            'issued_date' => fake()->date(),
+            'issued_number' => fake()->numerify
         ];
     }
 }
