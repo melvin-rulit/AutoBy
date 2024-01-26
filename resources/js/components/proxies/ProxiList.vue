@@ -1,6 +1,6 @@
 <template>
-    <Spinner v-show="this.loading" />
-    <Alert :errors="this.errorMessage"/>
+    <Error :errors="error"/>
+    <Success :message="message"/>
     <div class="sm:px-6 w-full">
         <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
             <h3 class="text-4xl font-extrabold dark:text-white">Доверенности</h3>
@@ -85,11 +85,35 @@
 </template>
 
 <script>
+import {ProxiService} from "../../services/ProxiService";
+import Spinner from "../instruments/Spinner.vue";
+import Success from "../instruments/Success.vue";
+import Error from "../instruments/Error.vue";
+
 export default {
-    name: "ProxiList"
+    name: "ProxiList",
+    components: {Spinner, Success, Error},
+
+    data: function () {
+      return {
+          proxies: [],
+          message: null,
+          error: null,
+      }
+    },
+    created: async function () {
+        this.update()
+    },
+    methods: {
+        update: function () {
+            this.loading = true;
+            ProxiService.getProxies(this.query)
+                .then(response => this.proxies = response.data.proxies)
+                .catch(error => this.error = error)
+                .finally(() => this.loading = false)
+        }
+    },
 }
+
 </script>
 
-<style scoped>
-
-</style>
