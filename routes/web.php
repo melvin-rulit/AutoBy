@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProxiController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -48,11 +49,11 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'proxies'], function () {
-        Route::get('/', [ClientController::class, 'index'])->name('proxies.list');
-        Route::post('/', [ClientController::class, 'store']);
-        Route::get('/{id}', [ClientController::class, 'show']);
-        Route::put('/{id}', [ClientController::class, 'update']);
-        Route::delete('/{id}', [ClientController::class, 'delete']);
+        Route::get('/', [ProxiController::class, 'index'])->name('proxies.list');
+        Route::post('/', [ProxiController::class, 'store']);
+        Route::get('/{id}', [ProxiController::class, 'show']);
+        Route::put('/{id}', [ProxiController::class, 'update']);
+        Route::delete('/{id}', [ProxiController::class, 'delete']);
     });
 
     Route::group(['prefix' => 'roles'], function () {
