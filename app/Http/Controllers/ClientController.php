@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ClientResource;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Http\Resources\ClientResource;
+use App\Http\Requests\Client\ClientUpdateRequest;
 
 class ClientController extends Controller
 {
-const PER_PAGE = 20;
-
     /**
      * ClientController constructor.
      */
@@ -48,6 +47,51 @@ const PER_PAGE = 20;
             return $this->error('Клиент не найден');
         }
 
-        return new JsonResponse(['user' => ClientResource::make($client)]);
+        return new JsonResponse(['client' => ClientResource::make($client)]);
+    }
+    public function update(ClientUpdateRequest $request, int $id): JsonResponse
+    {
+        /** @var User $user */
+        $user = auth()->user();
+        $client = $this->client->find($id);
+
+        if (!$client || $client->branch_id !== $user->getBranchId()) {
+            return $this->error('Клиент не найден');
+        }
+
+        $client->first_name = $request->getFirstName();
+        $client->middle_name = $request->getMiddleName();
+        $client->last_name = $request->getLastName();
+        $client->birthday = $request->getBirthday();
+        $client->passport_series = $request->getPassportSeries();
+        $client->passport_number = $request->getPassportNumber();
+        $client->passport_notes = $request->getPassportNotes();
+        $client->registration_address = $request->getRegistrationAddress();
+        $client->residence_address = $request->getResidenceAddress();
+        $client->phone_number = $request->getPhone();
+        $client->email = $request->getEmail();
+        $client->comment = $request->getComment();
+        $client->branch_id = $user->getBranchId();
+        $client->resident_card = $request->getResidentCard();
+        $client->personnel_number = $request->getPersonnelNumber();
+
+        $client->save();
+
+        return new JsonResponse(
+            [
+                'client' => ClientResource::make($client),
+            ]
+        );
+    }
+
+    public function delete($id)
+    {
+        $client = $this->client::find($id);
+
+        if (!$client) {
+            return $this->error('Клиент не найден');
+        }
+
+        $client->delete();
     }
 }
