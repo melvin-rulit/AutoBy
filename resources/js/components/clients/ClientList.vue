@@ -9,7 +9,7 @@
                     <div
                         class="grid md:grid-cols-2 md:gap-6 mt-4 rounded-full p-4 mb-10 border border-gray-100 rounded-0">
                         <div class="relative z-0 w-50 group rounded-full">
-                            <!--                            <TextInput @keyup="update()" v-model:value="query" title="Поиск" placeholder="ФИО или номер телефона" type="text" />-->
+                            <TextInput @keyup="update()" v-model:value="query" title="Поиск" placeholder="ФИО или номер телефона" type="text" />
                         </div>
                     </div>
                 </form>
@@ -89,13 +89,14 @@
 
 <script>
 import {ClientService} from "../../services/ClientService";
+import TextInput from "../instruments/TextInput.vue";
 import Spinner from "../instruments/Spinner.vue";
 import Success from "../instruments/Success.vue";
 import Error from "../instruments/Error.vue";
 
 export default {
     name: "ClientsList",
-    components: {Success, Error, Spinner},
+    components: {TextInput, Success, Error, Spinner},
     data: function () {
         return {
             clients: [],

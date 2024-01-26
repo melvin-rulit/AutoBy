@@ -92,7 +92,7 @@
 
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
-                    <router-link to="/users" type="button"
+                    <router-link to="/clients" type="button"
                                  class="text-sm font-semibold leading-6 text-gray-900">Отмена
                     </router-link>
                     <button type="submit"

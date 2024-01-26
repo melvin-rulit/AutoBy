@@ -7,6 +7,10 @@ export class ClientService {
         let url = `${this.serverUrl}/clients`;
         return axios.get(url, {"params": {"query": query}});
     }
+    static store(client) {
+        let url = `${this.serverUrl}/clients`;
+        return axios.post(url, client)
+    }
 
     static getById(id){
         let url = `${this.serverUrl}/clients/${id}`;
@@ -23,4 +27,3 @@ export class ClientService {
         return axios.delete(url, id)
     }
 }
-
