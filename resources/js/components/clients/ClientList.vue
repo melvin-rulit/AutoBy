@@ -91,6 +91,7 @@ export default {
     data: function () {
         return {
             clients: [],
+            loading: false,
             message: null,
             error: null,
         }
