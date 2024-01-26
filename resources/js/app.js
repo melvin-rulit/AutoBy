@@ -14,6 +14,9 @@ import BranchEdit from "./components/branches/BranchEdit.vue";
 import ClientList from "./components/clients/ClientList.vue";
 import ClientCreate from "./components/clients/ClientCreate.vue";
 import ClientEdit from "./components/clients/ClientEdit.vue";
+import ProxiList from "./components/proxies/ProxiList.vue";
+import ProxiCreate from "./components/proxies/ProxiCreate.vue";
+import ProxiEdit from "./components/proxies/ProxiEdit.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -66,6 +69,21 @@ const router = createRouter({
             name: 'updateClient',
             path: '/clients/:id',
             component: ClientEdit
+        },
+        {
+            name: 'listProxi',
+            path: '/proxies',
+            component: ProxiList
+        },
+        {
+            name: 'createProxi',
+            path: '/proxies/create',
+            component: ProxiCreate
+        },
+        {
+            name: 'updateProxi',
+            path: '/proxies/:id',
+            component: ProxiEdit
         }
     ],
 
