@@ -98,7 +98,7 @@ export default {
     },
     methods: {
         navigateToProxi (id){
-            this.$router.push({path: '/proxies' + id})
+            this.$router.push({path: '/proxies/' + id})
         },
         update: function () {
             this.loading = true;

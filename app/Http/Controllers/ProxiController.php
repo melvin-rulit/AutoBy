@@ -22,6 +22,17 @@ class ProxiController extends Controller
         return new JsonResponse(['proxies' => ProxiResource::collection($proxies)]);
     }
 
+    public function show(): JsonResponse
+    {
+        $proxi = $this->proxi::all();
+
+        if (!$proxi) {
+            return $this->error('Доверенность не найдена');
+        }
+
+        return new JsonResponse(['proxies' => ProxiResource::collection($proxi)]);
+    }
+
     public function store(CreateProxiRequest $request): JsonResponse
     {
         $proxi = $this->proxi->newInstance();
