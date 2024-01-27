@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Proxi;
 use Illuminate\Http\JsonResponse;
-use App\Http\Resources\ProxyResource;
+use App\Http\Resources\ProxiResource;
+use App\Http\Requests\Proxi\CreateProxiRequest;
 
 class ProxiController extends Controller
 {
@@ -18,6 +19,22 @@ class ProxiController extends Controller
     public function index(): JsonResponse
     {
         $proxies = $this->proxi::all();
-        return new JsonResponse(['proxies' => ProxyResource::collection($proxies)]);
+        return new JsonResponse(['proxies' => ProxiResource::collection($proxies)]);
+    }
+
+    public function store(CreateProxiRequest $request): JsonResponse
+    {
+        $proxi = $this->proxi->newInstance();
+
+        $proxi->delegate_id = $request->getDelegateId();
+        $proxi->owner_id = $request->getOwnerId();
+        $proxi->number = $request->getNumber();
+        $proxi->valid_until = $request->getValidUntil();
+        $proxi->issued_by = $request->getIssuedBy();
+        $proxi->issued_number = $request->getIssuedNumber();
+
+        $proxi->save();
+
+        return new JsonResponse(['proxy' => ProxiResource::make($proxi)]);
     }
 }

@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import {ProxiService} from "../../services/ProxiService";
 import {UserService} from "../../services/UserService";
 import TextInput from "../instruments/TextInput.vue";
 import Error from "../instruments/Error.vue";
@@ -81,8 +82,17 @@ export default {
             .then(response => this.owners = response.data.admins)
     },
     methods: {
-        store(){
-
+        store: async function (event) {
+            event.preventDefault()
+            this.errors = null
+            ProxiService.store(this.proxy)
+                .then(response => {
+                    this.proxy = response.data.proxy
+                    this.$router.push({name: 'proxiList'})
+                })
+                .catch(error => {
+                    this.errors = error.response.data.message
+                })
         }
     }
 }

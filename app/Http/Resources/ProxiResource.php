@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProxyResource extends JsonResource
+class ProxiResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,8 +17,8 @@ class ProxyResource extends JsonResource
     {
        return [
            'id'           => $this->resource->id,
-           'delegate'     => UserResource::make($this->resource->delegate),
-           'owner'        => UserResource::make($this->resource->owner),
+           'delegate'     => 'UserResource::make($this->resource->delegate)',
+           'owner'        => 'UserResource::make($this->resource->owner)',
            'number'       => $this->resource->number,
            'valid_until'   => Carbon::create($this->resource->valid_until)->format('d-m-Y'),
            'issued_by'     => $this->resource->issued_by,
