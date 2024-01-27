@@ -17,6 +17,9 @@ import ClientEdit from "./components/clients/ClientEdit.vue";
 import ProxiList from "./components/proxies/ProxiList.vue";
 import ProxiCreate from "./components/proxies/ProxiCreate.vue";
 import ProxiEdit from "./components/proxies/ProxiEdit.vue";
+import ActiveList from "./components/actives/ActiveList.vue";
+import ActiveCreate from "./components/actives/ActiveCreate.vue";
+import ActiveEdit from "./components/actives/ActiveEdit.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -84,6 +87,21 @@ const router = createRouter({
             name: 'updateProxi',
             path: '/proxies/:id',
             component: ProxiEdit
+        },
+        {
+            name: 'listActive',
+            path: '/actives',
+            component: ActiveList
+        },
+        {
+            name: 'createActive',
+            path: '/actives/create',
+            component: ActiveCreate
+        },
+        {
+            name: 'updateActive',
+            path: '/actives/:id',
+            component: ActiveEdit
         }
     ],
 
