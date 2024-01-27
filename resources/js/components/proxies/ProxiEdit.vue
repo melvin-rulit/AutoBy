@@ -8,10 +8,10 @@
             <form @submit="update">
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
-<!--                        <Select title="ФИО представителя" v-model:value="proxi.delegate.id" :values="delegates"/>-->
+                        <Select title="ФИО представителя" v-model:value="proxi.delegate.id" :values="delegates"/>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-<!--                        <Select title="ФИО собственника" v-model:value="proxi.owner.id" :values="owners"/>-->
+                        <Select title="ФИО собственника" v-model:value="proxi.owner.id" :values="owners"/>
                     </div>
                 </div>
 

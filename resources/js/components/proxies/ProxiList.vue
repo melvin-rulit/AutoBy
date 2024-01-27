@@ -38,12 +38,12 @@
                         class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-blue-100">
                         <td class="">
                             <div class="flex items-center pl-5">
-<!--                                <p class="text-sm font-medium leading-none text-gray-700 mr-2">{{ proxi.delegate.name }}</p>-->
+                                <p class="text-sm font-medium leading-none text-gray-700 mr-2">{{ proxi.delegate.full_name }}</p>
                             </div>
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-sm leading-none text-gray-600 ml-2">{{ proxi.owner.name }}</p>
+                                <p class="text-sm leading-none text-gray-600 ml-2">{{ proxi.owner.full_name }}</p>
                             </div>
                         </td>
                         <td class="">
