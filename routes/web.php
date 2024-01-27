@@ -30,6 +30,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'delete']);
 
+        Route::get('/managers', [UserController::class, 'managersList']);
+        Route::get('/admins', [UserController::class, 'adminsList']);
+        Route::get('/investors', [UserController::class, 'investorsList']);
+
     });
 
     Route::group(['prefix' => 'branches'], function () {
