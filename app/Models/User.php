@@ -79,6 +79,16 @@ class User extends Authenticatable
         return $this->role_id === self::ROLE_ADMIN;
     }
 
+    public function isManager(): bool
+    {
+        return $this->role_id === self::ROLE_MANAGER;
+    }
+
+    public function isInvestor(): bool
+    {
+        return $this->role_id === self::ROLE_INVESTOR;
+    }
+
     public function getBranchId(): ?int
     {
         return $this->branch_id;
