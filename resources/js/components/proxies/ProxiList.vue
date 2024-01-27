@@ -53,12 +53,12 @@
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-sm leading-none text-gray-600 ml-2">{{ proxy.validUntil }}</p>
+                                <p class="text-sm leading-none text-gray-600 ml-2">{{ proxy.valid_until }}</p>
                             </div>
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-sm leading-none text-gray-600 ml-2">{{ proxy.issuedBy }}</p>
+                                <p class="text-sm leading-none text-gray-600 ml-2">{{ proxy.issued_by }}</p>
                             </div>
                         </td>
                         <td class="pl-4">
