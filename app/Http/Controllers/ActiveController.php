@@ -40,7 +40,7 @@ class ActiveController extends Controller
     {
         $active = $this->active->newInstance();
 
-        $active->model = $request->getModel();
+        $active->name = $request->getModel();
         $active->body_number = $request->getBodyNumber();
         $active->reg_number = $request->getRegNumber();
         $active->year = $request->getYear();
@@ -70,7 +70,7 @@ class ActiveController extends Controller
             return $this->error('Актив не найден');
         }
 
-        $active->model = $request->getModel();
+        $active->name = $request->getModel();
         $active->body_number = $request->getBodyNumber();
         $active->reg_number = $request->getRegNumber();
         $active->year = $request->getYear();

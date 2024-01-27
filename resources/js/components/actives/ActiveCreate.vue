@@ -135,9 +135,19 @@ export default {
             .then(response => this.investors = response.data.investors)
     },
     methods: {
-        store(){
-
-        },
+        store: async function (event) {
+            event.preventDefault()
+            this.errors = null
+            ActiveService.store(this.active)
+                .then(response => {
+                    this.active = response.data.active
+                    this.$router.push({name: 'listActive'})
+                })
+                .catch(error => {
+                    this.errors = error.response.data.message
+                })
+        }
+    },
         colors: function () {
             return [
                 {id: 1, name: 'Белый'},
@@ -153,7 +163,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>
