@@ -20,7 +20,7 @@
                         <NumberInput title="Год выпуска" v-model:value="active.year"/>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-                        <Select title="Цвет" v-model:value="active.color_id" :values="colors"/>
+                        <Select title="Цвет" v-model:value="active.color_id" :values="colors()"/>
                     </div>
                 </div>
 
@@ -49,7 +49,7 @@
                         <TextInput title="Номер страхового полиса ОСАГО" v-model:value="active.osago_number" type="text"/>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-                        <DateInput title="Дата действия страхового полиса ОСАГО" v-model:value="active.osago" type="date"/>
+                        <DataInput title="Дата действия страхового полиса ОСАГО" v-model:value="active.osago" type="date"/>
                     </div>
                 </div>
                 <div class="grid md:grid-cols-2 md:gap-6">
@@ -65,7 +65,7 @@
                         <TextInput title="Код подразделения" v-model:value="active.document_notes"/>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-                        <DateInput title="Дата выдачи" v-model:value="active.document_date" type="date"/>
+                        <DataInput title="Дата выдачи" v-model:value="active.document_date" type="date"/>
                     </div>
                 </div>
 
@@ -92,12 +92,12 @@ import TextInput from "../instruments/TextInput.vue";
 import NumberInput from "../instruments/NumberInput.vue";
 import Error from "../instruments/Error.vue";
 import Success from "../instruments/Success.vue";
-import DateInput from "../instruments/DataInput.vue";
+import DataInput from "../instruments/DataInput.vue";
 import Select from "../instruments/Select.vue";
 
 export default {
     name: "ActiveCreate",
-    components: {Select, DateInput, Success, Error, TextInput, NumberInput},
+    components: {Select, DataInput, Success, Error, TextInput, NumberInput},
 
     data: function (){
         return {
@@ -137,6 +137,18 @@ export default {
     methods: {
         store(){
 
+        },
+        colors: function () {
+            return [
+                {id: 1, name: 'Белый'},
+                {id: 2, name: 'Черный'},
+                {id: 3, name: 'Красный'},
+                {id: 4, name: 'Серый'},
+                {id: 5, name: 'Голубой'},
+                {id: 6, name: 'Коричневый'},
+                {id: 7, name: 'Зеленый'},
+                {id: 8, name: 'Желтый'},
+            ];
         }
     }
 }

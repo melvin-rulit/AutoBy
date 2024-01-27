@@ -132,7 +132,7 @@ export default {
 
     methods: {
         navigateToActive(id) {
-          this.$route.push({path: '/actives/' + id})
+          this.$router.push({path: '/actives/' + id})
         },
         color: function (idx) {
             let colors = [
