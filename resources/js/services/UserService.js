@@ -40,4 +40,22 @@ export class UserService {
         return axios.get(url)
     }
 
+    static getManagersList()
+    {
+        let url = `${this.serverUrl}/users/managers`;
+        return axios.get(url)
+    }
+
+    static getAdminsList()
+    {
+        let url = `${this.serverUrl}/users/admins`;
+        return axios.get(url)
+    }
+
+    static getInvestorList()
+    {
+        let url = `${this.serverUrl}/users/investors`;
+        return axios.get(url)
+    }
+
 }
