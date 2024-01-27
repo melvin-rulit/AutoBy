@@ -23,12 +23,14 @@
                         <Select title="Цвет" v-model:value="active.color_id" :values="colors"/>
                     </div>
                 </div>
-                <div v-if="currentUser.roleId === 1" class="relative z-0 w-full mb-6 group">
+
+                <div v-if="currentUser.role_id === 1" class="relative z-0 w-full mb-6 group">
                     <Select title="Филиал" v-model:value="active.branch_id" :values="branches"/>
                 </div>
+
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
-                        <NumberInput title="Стоимость актива" v-model:value="active.cost" step="0.01" min="0.01"/>
+                        <NumberInput title="Стоимость актива" v-model:value="active.cost" step="0.01"/>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
                         <Select title="Источник финансирования" v-model:value="active.investor_id" :values="investors"/>
@@ -36,10 +38,10 @@
                 </div>
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
-                        <NumberInput title="Стоимость аренды (неделя)" v-model:value="active.cost_of_rent" step="1" min="0"/>
+                        <NumberInput title="Стоимость аренды (неделя)" v-model:value="active.cost_of_rent" step="1"/>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-                        <NumberInput title="Стоимость выкупа (неделя)" v-model:value="active.cost_of_buyout" step="1" min="0"/>
+                        <NumberInput title="Стоимость выкупа (неделя)" v-model:value="active.cost_of_buyout" step="1"/>
                     </div>
                 </div>
                 <div class="grid md:grid-cols-2 md:gap-6">
@@ -95,7 +97,7 @@ import Select from "../instruments/Select.vue";
 
 export default {
     name: "ActiveCreate",
-    components: {Select, DateInput, Success, Error, TextInput},
+    components: {Select, DateInput, Success, Error, TextInput, NumberInput},
 
     data: function (){
         return {
@@ -127,11 +129,9 @@ export default {
         }
     },
     mounted() {
-        BranchService.branchList()
-            .then(response => this.branches = response.data.branches)
         UserService.currentUser()
             .then(response => this.currentUser = response.data.user)
-        UserService.getInvestorsList()
+        UserService.getInvestorList()
             .then(response => this.investors = response.data.investors)
     },
     methods: {

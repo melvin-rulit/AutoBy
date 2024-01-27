@@ -1,10 +1,12 @@
 <template>
     <Success :message="message"/>
-    <Error :errors="errors"/>
+    <Error :errors="error"/>
+
     <div class="sm:px-6 w-full">
         <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
             <h3 class="text-4xl font-extrabold dark:text-white">Список активов</h3>
             <div class="mt-7 overflow-x-auto">
+
                 <table class="w-full whitespace-nowrap">
                     <thead class="bg-gray-100 border">
                     <tr tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
@@ -40,6 +42,7 @@
                         </td>
                     </tr>
                     </thead>
+
                     <tbody>
                     <tr v-for="active of actives" :key=active.id tabindex="0"
                         @click="navigateToActive(active.id)"
@@ -52,7 +55,7 @@
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-sm leading-none text-gray-600 ml-2">{{ active.regNumber }}</p>
+                                <p class="text-sm leading-none text-gray-600 ml-2">{{ active.reg_number }}</p>
                             </div>
                         </td>
                         <td class="">
@@ -69,12 +72,12 @@
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-sm leading-none text-gray-600 ml-2">{{ color(active.colorId) }}</p>
+                                <p class="text-sm leading-none text-gray-600 ml-2">{{ color(active.color_id) }}</p>
                             </div>
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-sm leading-none text-gray-600 ml-2">{{ active.investor.name }}</p>
+<!--                                <p class="text-sm leading-none text-gray-600 ml-2">{{ active.investor.name }}</p>-->
                             </div>
                         </td>
 
@@ -106,37 +109,63 @@
 </template>
 
 <script>
-import {UserService} from "../../services/UserService";
+import {ActiveService} from "../../services/ActiveService";
+import Error from "../instruments/Error.vue";
+import Success from "../instruments/Success.vue";
 
 export default {
     name: "ActiveList",
+    components: {Error, Success},
 
     data: function () {
         return {
-            actives: []
+            actives: [],
+            loading: false,
+            error: null,
+            message: null,
         }
+    },
+
+    created: async function () {
+        this.update()
     },
 
     methods: {
         navigateToActive(id) {
           this.$route.push({path: '/actives/' + id})
         },
-        deleteUser($id, $name) {
+        color: function (idx) {
+            let colors = [
+                'Не задан',
+                'Белый',
+                'Черный',
+                'Красный',
+                'Серый',
+                'Голубой',
+                'Коричневый',
+                'Зеленый',
+                'Желтый',
+            ];
+            return colors.at(idx)
+        },
+        update(){
+            this.loading = true
+            ActiveService.getActives()
+                .then(response => this.actives = response.data.actives)
+                .catch(error => this.error = error.response.data.message)
+                .finally(() => this.loading = false)
+        },
+        deleteActive($id, $name) {
             const Active = $name.toUpperCase()
-            if (confirm('Вы действительно хотите удалить Актив ' + Active + '?')) {
-                UserService.delete($id)
+            if (confirm('Вы действительно хотите удалить Актив: ' + Active + '?')) {
+                ActiveService.delete($id)
                     .then(response => {
-                        this.message = 'Актив ' + Active+ ' был успешно удален'
+                        this.message = 'Актив: ' + Active + ' был успешно удален'
                         this.update(this.page)
                     })
-
-
                     .catch(error => this.error = error.response.data.error)
             }
         },
-        deleteActive() {
-
-        }
     }
 }
 </script>
