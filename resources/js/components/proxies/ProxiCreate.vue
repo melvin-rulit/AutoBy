@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import {UserService} from "../../services/UserService";
 import TextInput from "../instruments/TextInput.vue";
 import Error from "../instruments/Error.vue";
 import Success from "../instruments/Success.vue";
@@ -73,12 +74,12 @@ export default {
             errors: null,
         }
     },
-    // mounted() {
-    //     UserService.getManagersList()
-    //         .then(response => this.delegates = response.data.managers)
-    //     UserService.getAdminsList()
-    //         .then(response => this.owners = response.data.admins)
-    // },
+    mounted() {
+        UserService.getManagersList()
+            .then(response => this.delegates = response.data.managers)
+        UserService.getAdminsList()
+            .then(response => this.owners = response.data.admins)
+    },
     methods: {
         store(){
 
