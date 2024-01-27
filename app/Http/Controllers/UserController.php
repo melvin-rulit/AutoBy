@@ -131,6 +131,40 @@ const PER_PAGE = 20;
        return new JsonResponse(['user' => UserResource::make(auth()->user())]);
     }
 
+    public function managersList(): JsonResponse
+    {
+        $managersList = [];
+        $managers = User::whereIn('role_id', [User::ROLE_MANAGER, User::ROLE_ADMIN])->get();
 
+        foreach ($managers as $manager) {
+            $managersList[] = ['id' => $manager->id, 'name' => $manager->getFullName()];
+        }
+
+        return new JsonResponse(['managers' => $managersList]);
+    }
+
+    public function adminsList(): JsonResponse
+    {
+        $adminsList = [];
+        $admins = User::whereIn('role_id', [User::ROLE_MANAGER, User::ROLE_ADMIN])->get();
+
+        foreach ($admins as $admin) {
+            $adminsList[] = ['id' => $admin->id, 'name' => $admin->getFullName()];
+        }
+
+        return new JsonResponse(['admins' => $adminsList]);
+    }
+
+    public function investorsList(): JsonResponse
+    {
+        $adminsList = [];
+        $investors = User::where('role_id', '=', User::ROLE_INVESTOR)->get();
+
+        foreach ($investors as $investor) {
+            $adminsList[] = ['id' => $investor->id, 'name' => $investor->getFullName()];
+        }
+
+        return new JsonResponse(['investors' => $adminsList]);
+    }
 
 }
