@@ -1,23 +1,14 @@
 <?php
 
-use App\Http\Controllers\BranchController;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\ProxiController;
-use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ProxiController;
+use App\Http\Controllers\ActiveController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\ClientController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/user', [UserController::class, 'current']);
@@ -58,6 +49,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [ProxiController::class, 'show']);
         Route::put('/{id}', [ProxiController::class, 'update']);
         Route::delete('/{id}', [ProxiController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'actives'], function () {
+        Route::get('/', [ActiveController::class, 'index'])->name('actives.list');
+        Route::post('/', [ActiveController::class, 'store']);
+        Route::get('/{id}', [ActiveController::class, 'show']);
+        Route::put('/{id}', [ActiveController::class, 'update']);
+        Route::delete('/{id}', [ActiveController::class, 'delete']);
     });
 
     Route::group(['prefix' => 'roles'], function () {
