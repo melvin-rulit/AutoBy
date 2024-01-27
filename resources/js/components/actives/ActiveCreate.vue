@@ -141,13 +141,14 @@ export default {
             ActiveService.store(this.active)
                 .then(response => {
                     this.active = response.data.active
-                    this.$router.push({name: 'listActive'})
+                    this.$router.push({name: 'editActive', params: {id: this.active.id}})
                 })
                 .catch(error => {
                     this.errors = error.response.data.message
+                    this.$router.push({name: 'listActive'})
                 })
-        }
-    },
+        },
+
         colors: function () {
             return [
                 {id: 1, name: 'Белый'},
