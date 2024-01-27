@@ -4,31 +4,32 @@
             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Редактирование доверенности</h3>
             <Success :message="message"/>
             <Error :errors="errors"/>
+
             <form @submit="update">
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
-                        <Select title="ФИО представителя" v-model:value="proxy.delegate_id" :values="delegates"/>
+<!--                        <Select title="ФИО представителя" v-model:value="proxi.delegate.id" :values="delegates"/>-->
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-                        <Select title="ФИО собственника" v-model:value="proxy.owner_id" :values="owners"/>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <TextInput title="Номер" v-model:value="proxy.number" type="text"/>
-                    </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <DataInput title="Дата действия доверенности" v-model:value="proxy.valid_until" type="date"/>
+<!--                        <Select title="ФИО собственника" v-model:value="proxi.owner.id" :values="owners"/>-->
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
-                        <TextInput title="Кем выдана доверенность" v-model:value="proxy.issued_by" type="text"/>
+                        <TextInput title="Номер" v-model:value="proxi.number" type="text"/>
                     </div>
                     <div class="relative z-0 w-full mb-6 group">
-                        <TextInput title="Зарегистрированной в реестре" v-model:value="proxy.issued_number" type="text"/>
+                        <DataInput title="Дата действия доверенности" v-model:value="proxi.valid_until" type="date"/>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-6 group">
+                        <TextInput title="Кем выдана доверенность" v-model:value="proxi.issued_by" type="text"/>
+                    </div>
+                    <div class="relative z-0 w-full mb-6 group">
+                        <TextInput title="Зарегистрированной в реестре" v-model:value="proxi.issued_number" type="text"/>
                     </div>
                 </div>
 
@@ -62,26 +63,50 @@ export default {
 
     data: function (){
         return {
-            proxy: {
-                delegate: null,
-                owner: null,
+
+            proxi: {
+                id: this.$route.params.id,
+                delegate: {
+                    id: null
+                },
+                owner: {
+                    id: null
+                },
+                number: null,
+                valid_until: null,
+                issued_by: null,
+                issued_number: null,
             },
+            delegates: [],
+            owners: [],
             message: null,
             errors: null,
-            number: null,
-            valid_until: null,
-            issued_by: null,
-            issued_number: null,
+
         }
     },
+    mounted() {
+        UserService.getManagersList()
+            .then(response => this.delegates = response.data.managers)
+        UserService.getAdminsList()
+            .then(response => this.owners = response.data.admins)
+        ProxiService.getById(this.proxi.id)
+            .then(response => this.proxi = response.data.proxi)
+    },
     methods: {
-        update(){
-
+        update: async function (event) {
+            event.preventDefault()
+            this.errors = null
+            ProxiService.update(this.proxi)
+                .then(response => {
+                    this.proxi = response.data.proxi
+                    this.message = 'Доверенность обновлена'
+                })
+                .catch(error => {
+                    this.errors = error.response.data.message
+                })
         }
     }
 }
 </script>
 
-<style scoped>
 
-</style>

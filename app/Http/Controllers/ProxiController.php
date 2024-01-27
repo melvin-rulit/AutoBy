@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Proxi;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\ProxiResource;
+use App\Http\Requests\Proxi\UpdateProxiRequest;
 use App\Http\Requests\Proxi\CreateProxiRequest;
 
 class ProxiController extends Controller
@@ -22,15 +23,35 @@ class ProxiController extends Controller
         return new JsonResponse(['proxies' => ProxiResource::collection($proxies)]);
     }
 
-    public function show(): JsonResponse
+    public function show(int $id): JsonResponse
     {
-        $proxi = $this->proxi::all();
+        $proxi = $this->proxi->find($id);
 
         if (!$proxi) {
             return $this->error('Доверенность не найдена');
         }
 
-        return new JsonResponse(['proxies' => ProxiResource::collection($proxi)]);
+        return new JsonResponse(['proxi' => ProxiResource::make($proxi)]);
+    }
+
+    public function update(UpdateProxiRequest $request, int $id): JsonResponse
+    {
+        $proxi = $this->proxi->find($id);
+
+        if (!$proxi) {
+            return $this->error('Доверенность не найдена');
+        }
+
+        $proxi->delegate_id = $request->getDelegateId();
+        $proxi->owner_id = $request->getOwnerId();
+        $proxi->number = $request->getNumber();
+        $proxi->valid_until = $request->getValidUntil();
+        $proxi->issued_by = $request->getIssuedBy();
+        $proxi->issued_number = $request->getIssuedNumber();
+
+        $proxi->save();
+
+        return new JsonResponse(['proxi' => ProxiResource::make($proxi)]);
     }
 
     public function store(CreateProxiRequest $request): JsonResponse
@@ -46,6 +67,20 @@ class ProxiController extends Controller
 
         $proxi->save();
 
-        return new JsonResponse(['proxy' => ProxiResource::make($proxi)]);
+        return new JsonResponse(['proxi' => ProxiResource::make($proxi)]);
     }
+
+    public function delete(int $id): JsonResponse
+    {
+        $proxi = $this->proxi->find($id);
+
+        if (!$proxi) {
+            return $this->error('Доверенность не найдена');
+        }
+
+        $proxi->delete();
+
+        return $this->success();
+    }
+
 }
