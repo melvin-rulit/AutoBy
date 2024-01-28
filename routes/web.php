@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DealController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -57,6 +58,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [ActiveController::class, 'show']);
         Route::put('/{id}', [ActiveController::class, 'update']);
         Route::delete('/{id}', [ActiveController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'deals'], function () {
+        Route::get('/', [DealController::class, 'index'])->name('deals.list');
+        Route::post('/', [DealController::class, 'store']);
+        Route::get('/{id}', [DealController::class, 'show']);
+        Route::put('/{id}', [DealController::class, 'update']);
+        Route::delete('/{id}', [DealController::class, 'delete']);
     });
 
     Route::group(['prefix' => 'roles'], function () {

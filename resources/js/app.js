@@ -5,21 +5,30 @@ import {createApp} from 'vue'
 import {createRouter, createWebHashHistory} from 'vue-router'
 
 import App from "./components/App.vue";
+
 import UserList from "./components/users/UserList.vue";
 import UserCreate from "./components/users/UserCreate.vue";
 import UserEdit from "./components/users/UserEdit.vue";
+
 import BranchList from "./components/branches/BranchesList.vue";
 import BranchCreate from "./components/branches/BranchCreate.vue";
 import BranchEdit from "./components/branches/BranchEdit.vue";
+
 import ClientList from "./components/clients/ClientList.vue";
 import ClientCreate from "./components/clients/ClientCreate.vue";
 import ClientEdit from "./components/clients/ClientEdit.vue";
+
 import ProxiList from "./components/proxies/ProxiList.vue";
 import ProxiCreate from "./components/proxies/ProxiCreate.vue";
 import ProxiEdit from "./components/proxies/ProxiEdit.vue";
+
 import ActiveList from "./components/actives/ActiveList.vue";
 import ActiveCreate from "./components/actives/ActiveCreate.vue";
 import ActiveEdit from "./components/actives/ActiveEdit.vue";
+
+import DealList from "./components/deals/DealList.vue";
+import DealCreate from "./components/deals/DealCreate.vue";
+import DealEdit from "./components/deals/DealEdit.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -102,6 +111,21 @@ const router = createRouter({
             name: 'updateActive',
             path: '/actives/:id',
             component: ActiveEdit
+        },
+        {
+            name: 'listDeal',
+            path: '/deals',
+            component: DealList
+        },
+        {
+            name: 'createDeal',
+            path: '/deals/create',
+            component: DealCreate
+        },
+        {
+            name: 'updateDeal',
+            path: '/deals/:id',
+            component: DealEdit
         }
     ],
 
