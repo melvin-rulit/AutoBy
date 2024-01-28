@@ -65,7 +65,7 @@
 <script>
 import Error from "../instruments/Error.vue";
 import Success from "../instruments/Success.vue";
-import {ActiveService} from "../../services/ActiveService";
+import {DealService} from "../../services/DealService";
 export default {
     name: "DealList",
     components: {Error, Success},
@@ -84,15 +84,15 @@ export default {
         },
         update(){
             this.loading = true
-            ActiveService.getActives()
-                .then(response => this.actives = response.data.actives)
+            DealService.getDeals()
+                .then(response => this.deals = response.data.deals)
                 .catch(error => this.error = error.response.data.message)
                 .finally(() => this.loading = false)
         },
         deleteActive($id, $name) {
             const Deal = $name.toUpperCase()
             if (confirm('Вы действительно хотите удалить Сделку: ' + Deal + '?')) {
-                ActiveService.delete($id)
+                DealService.delete($id)
                     .then(response => {
                         this.message = 'Сделка: ' + Deal + ' была успешно удалена'
                         this.$router.push({name: 'listActive'})
