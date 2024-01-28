@@ -77,7 +77,7 @@
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-<!--                                <p class="text-sm leading-none text-gray-600 ml-2">{{ active.investor.name }}</p>-->
+                                <p class="text-sm leading-none text-gray-600 ml-2">{{ active.investor.full_name }}</p>
                             </div>
                         </td>
 
@@ -161,7 +161,7 @@ export default {
                 ActiveService.delete($id)
                     .then(response => {
                         this.message = 'Актив: ' + Active + ' был успешно удален'
-                        this.update(this.page)
+                        this.$router.push({name: 'listActive'})
                     })
                     .catch(error => this.error = error.response.data.error)
             }

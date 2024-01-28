@@ -144,6 +144,8 @@ export default {
             .catch(error => this.errors = error.response.data.message)
         UserService.currentUser()
             .then(response => this.currentUser = response.data.user)
+        UserService.getInvestorList()
+            .then(response => this.investors = response.data.investors)
     },
     methods: {
         update: async function (event) {
