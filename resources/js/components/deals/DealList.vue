@@ -81,7 +81,7 @@
 
                         <td class="">
                             <div class="flex items-center pl-5">
-<!--                                <p class="text-sm leading-none text-gray-600 ml-2">{{ realRemain(deal) }}</p>-->
+                                <p class="text-sm leading-none text-gray-600 ml-2">{{ realRemain(deal) }}</p>
                             </div>
                         </td>
 
