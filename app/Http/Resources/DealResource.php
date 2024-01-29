@@ -33,6 +33,7 @@ class DealResource extends JsonResource
             'comment' => $this->resource->comment,
             'initial' => $this->resource->initial,
             'citizenship' => $this->resource->citizenship,
+            'payments' => PaymentResource::collection($this->resource->payments),
             'created_at' => Carbon::createFromDate($this->resource->created_at)->format('d,m,Y')
         ];
     }

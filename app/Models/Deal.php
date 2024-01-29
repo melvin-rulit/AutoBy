@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Deal extends Model
@@ -15,6 +16,11 @@ class Deal extends Model
     public function active(): HasOne
     {
         return $this->hasOne(Active::class, 'id', 'active_id');
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'deal_id', 'id');
     }
 
 
