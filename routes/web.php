@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DealController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -66,6 +67,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [DealController::class, 'show']);
         Route::put('/{id}', [DealController::class, 'update']);
         Route::delete('/{id}', [DealController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'payments'], function () {
+        Route::get('/', [PaymentController::class, 'index'])->name('payments.list');
+        Route::post('/', [PaymentController::class, 'store']);
+        Route::get('/{id}', [PaymentController::class, 'show']);
+        Route::put('/{id}', [PaymentController::class, 'update']);
+        Route::delete('/{id}', [PaymentController::class, 'delete']);
     });
 
     Route::group(['prefix' => 'roles'], function () {
