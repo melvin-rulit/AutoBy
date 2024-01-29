@@ -29,13 +29,12 @@ class ActiveResource extends JsonResource
             'branch' => BranchResource::make($this->resource->branch),
             'investor_id' => $this->resource->investor_id,
             'investor' => UserResource::make($this->resource->investor),
-            'osago' => $this->resource->osago,
+            'osago' => Carbon::create($this->resource->osago)->format('d-m-Y'),
             'osago_number' => $this->resource->osago_number,
             'document_series' => $this->resource->document_series,
             'document_number' => $this->resource->document_number,
             'document_notes' => $this->resource->document_notes,
             'document_date' => Carbon::create($this->resource->document_date)->format('d-m-Y'),
-            'created_at' => Carbon::create($this->resource->created_at)->format('d-m-Y H:i'),
         ];
     }
 }
