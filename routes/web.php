@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -76,6 +77,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [PaymentController::class, 'show']);
         Route::put('/{id}', [PaymentController::class, 'update']);
         Route::delete('/{id}', [PaymentController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'reports'], function () {
+        Route::get('/payments', [ReportController::class, 'findPaymentReports']);
+        Route::get('/actives', [ReportController::class, 'findActiveReports']);
     });
 
     Route::group(['prefix' => 'roles'], function () {
