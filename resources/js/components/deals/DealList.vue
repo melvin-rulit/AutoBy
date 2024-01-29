@@ -47,8 +47,10 @@
                         </td>
                     </tr>
                     </thead>
+
                     <tbody>
                     <tr v-for="deal of deals" :key=deal.id tabindex="0"
+                        @click="navigateToDeal(deal.id)"
                         class="focus:outline-none h-16 border border-gray-100 rounded cursor-pointer hover:bg-blue-100"
                       >
                         <td>
@@ -59,21 +61,21 @@
 
                         <td class="">
                             <div class="flex items-center pl-5">
-<!--                                <p class="text-sm leading-none text-gray-600 ml-2">{{ deal.active.investor.name }}</p>-->
+                                <p class="text-sm leading-none text-gray-600 ml-2">{{ deal.active.investor.full_name }}</p>
                             </div>
                         </td>
 
                         <td class="">
-<!--                            <div class="flex items-center pl-5">-->
-<!--                                <p class="text-sm leading-none text-gray-600 ml-2">{{ deal.active.model }}-->
-<!--                                    ({{ deal.active.regNumber }})</p>-->
-<!--                            </div>-->
+                            <div class="flex items-center pl-5">
+                                <p class="text-sm leading-none text-gray-600 ml-2">{{ deal.active.name }}
+                                    ({{ deal.active.reg_number }})</p>
+                            </div>
                         </td>
 
                         <td class="">
                             <div class="flex items-center pl-5">
-<!--                                <p v-if="deal.client" class="text-sm leading-none text-gray-600 ml-2">{{ deal.client.fullName }}</p>-->
-<!--                                <p v-else class="text-sm leading-none text-gray-600 ml-2"> Удален </p>-->
+                                <p v-if="deal.client" class="text-sm leading-none text-gray-600 ml-2">{{ deal.client.fullName }}</p>
+                                <p v-else class="text-sm leading-none text-gray-600 ml-2"> Удален </p>
                             </div>
                         </td>
 
@@ -97,13 +99,13 @@
 
                         <td class="">
                             <div class="flex items-center pl-5">
-<!--                                <p class="text-sm leading-none text-gray-600 ml-2">{{ deal.active.osagoPrintable }}</p>-->
+                                <p class="text-sm leading-none text-gray-600 ml-2">{{ deal.active.osago }}</p>
                             </div>
                         </td>
 
                         <td class="">
                             <div class="flex items-center pl-5">
-<!--                                <p class="text-sm leading-none text-gray-600 ml-2">{{ deal.createdAtPrintable }}</p>-->
+                                <p class="text-sm leading-none text-gray-600 ml-2">{{ deal.created_at }}</p>
                             </div>
                         </td>
                         <td class="pl-4">
@@ -144,9 +146,10 @@
 </template>
 
 <script>
+import {DealService} from "../../services/DealService";
 import Error from "../instruments/Error.vue";
 import Success from "../instruments/Success.vue";
-import {DealService} from "../../services/DealService";
+
 export default {
     name: "DealList",
     components: {Error, Success},
@@ -159,12 +162,22 @@ export default {
             message: null,
         }
     },
-    created() {
+    created: async function () {
         this.update()
     },
     methods: {
         navigateToDeal(id) {
             this.$router.push({path: '/deals/' + id})
+        },
+        realRemain: function (deal) {
+            let remain = deal.remain
+            const payments = deal.payments
+
+            payments.forEach(function (payment) {
+                remain -= payment.buyout
+            })
+
+            return remain;
         },
         update(){
             this.loading = true
@@ -173,13 +186,12 @@ export default {
                 .catch(error => this.error = error.response.data.message)
                 .finally(() => this.loading = false)
         },
-        deleteActive($id, $name) {
-            const Deal = $name.toUpperCase()
-            if (confirm('Вы действительно хотите удалить Сделку: ' + Deal + '?')) {
+        deleteDeal($id) {
+            if (confirm('Вы действительно хотите удалить Сделку?')) {
                 DealService.delete($id)
                     .then(response => {
-                        this.message = 'Сделка: ' + Deal + ' была успешно удалена'
-                        this.$router.push({name: 'listActive'})
+                        this.message = 'Сделка была успешно удалена'
+                        this.$router.push({name: 'listDeal'})
                     })
                     .catch(error => this.error = error.response.data.error)
             }

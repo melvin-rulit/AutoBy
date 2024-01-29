@@ -42,7 +42,7 @@ return new class extends Migration
             $table->dropColumn('proxy_id');
             $table->dropColumn('owner_id');
             $table->dropColumn('branch_id');
-            $table->dropColumn('client_id', 15);
+            $table->dropColumn('client_id');
             $table->dropColumn('active_id');
             $table->dropColumn('remain');
             $table->dropColumn('valid_until');
