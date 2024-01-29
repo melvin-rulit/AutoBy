@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Deal extends Model
 {
+    public const TYPE_RENT = 'rent';
+    public const TYPE_CREDIT = 'credit';
+
+    public const KIND_WITH_PROXY = 'proxy';
+    public const KIND_WITH_OWNER = 'owner';
+
     public function client(): HasOne
     {
         return $this->hasOne(Client::class, 'id', 'client_id');
