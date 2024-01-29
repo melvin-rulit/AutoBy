@@ -54,22 +54,23 @@
                     </div>
                 </div>
 
-                <div class="relative z-0 w-full mb-6 group">
-                    <Select title="Роль" name="roleId" v-model:value="user.role_id" :values="roles"/>
+                <div class="grid md:grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-6 group">
+                        <Select title="Роль" name="roleId" v-model:value="user.role_id" :values="roles"/>
+                    </div>
+                    <div class="relative z-0 w-full mb-6 group">
+                        <Select title="Филиал" name="branchId" v-model:value="user.branch_id" :values="branches"/>
+                    </div>
                 </div>
 
-                <div class="relative z-0 w-full mb-6 group">
-                    <Select title="Филиал" name="branchId" v-model:value="user.branch_id" :values="branches"/>
+                <div class="grid md:grid-cols-2 md:gap-6">
+                    <div class="relative z-0 w-full mb-6 group">
+                        <TextInput title="Пароль" v-model:value="user.password" type="password"/>
+                    </div>
+                    <div class="relative z-0 w-full mb-6 group">
+                        <Textarea title="Комментарий" v-model:value="user.comment"/>
+                    </div>
                 </div>
-
-                <div class="relative z-0 w-full mb-6 group">
-                    <TextInput title="Пароль" v-model:value="user.password" type="password"/>
-                </div>
-
-                <div class="relative z-0 w-full mb-6 group">
-<!--                    <Textarea title="Комментарий" v-model:value="user.comment"/>-->
-                </div>
-
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
                     <router-link to="/users" type="button"
@@ -89,6 +90,7 @@
 import {UserService} from "../../services/UserService";
 import {BranchService} from "../../services/BranchService";
 import TextInput from "../instruments/TextInput.vue";
+import Textarea from "../instruments/Textarea.vue";
 import Error from "../instruments/Error.vue";
 import Success from "../instruments/Success.vue";
 import DateInput from "../instruments/DataInput.vue";
@@ -96,7 +98,7 @@ import Select from "../instruments/Select.vue";
 
 export default {
     name: "UserCreate",
-    components: {Select, DateInput, Success, Error, TextInput},
+    components: {Select, DateInput, Success, Error, TextInput, Textarea},
 
     data: function () {
         return {
