@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [ProxiController::class, 'show']);
         Route::put('/{id}', [ProxiController::class, 'update']);
         Route::delete('/{id}', [ProxiController::class, 'delete']);
+        Route::get('/dict', [ProxiController::class, 'dict']);
     });
 
     Route::group(['prefix' => 'actives'], function () {

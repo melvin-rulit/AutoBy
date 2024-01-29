@@ -34,6 +34,20 @@ class ProxiController extends Controller
         return new JsonResponse(['proxi' => ProxiResource::make($proxi)]);
     }
 
+    public function dict(): JsonResponse
+    {
+        $proxies = [];
+
+        foreach ($this->proxi::all() as $proxy) {
+            $proxies[] = [
+                'id'   => $proxy->id,
+                'name' => $proxy->getName(),
+            ];
+        }
+
+        return new JsonResponse(['proxies' => $proxies]);
+    }
+
     public function update(UpdateProxiRequest $request, int $id): JsonResponse
     {
         $proxi = $this->proxi->find($id);

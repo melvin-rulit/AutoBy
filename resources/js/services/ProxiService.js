@@ -26,4 +26,9 @@ export class ProxiService {
         let url = `${this.serverUrl}/proxies/${id}`;
         return axios.delete(url, id)
     }
+
+    static dict(){
+        let url = `${this.serverUrl}/proxies/dict`;
+        return axios.get(url);
+    }
 }
