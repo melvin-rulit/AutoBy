@@ -25,6 +25,7 @@
     "dependencies": {
         "epic-spinners": "^2.0.0",
         "js-file-download": "^0.4.12",
+        "vue-multiselect": "^2.1.8",
         "vue-router": "^4.1.6"
     }
 }
