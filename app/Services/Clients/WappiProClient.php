@@ -77,4 +77,5 @@ class WappiProClient implements WhatsappClient
             \Log::error($e->getMessage());
         }
     }
+    
 }
